@@ -121,8 +121,7 @@ elseif ($result->num_rows > 0) {
             //Check if current time is between 10pm and 4am
             if( ($dtCurrentHour >= 22) || ($dtCurrentHour < 4) ){
                 echo "12 degrees (the night time temp)";
-                //TODO set temp to 12 degrees - essential!
-                echo $infos->current_state->temperature; //make a call to the device. dummy - just read current temp
+                //Set temp to night time temperature (12 degrees)
                 $success = $nest->setTargetTemperature(12);
                 var_dump($success);
                 
