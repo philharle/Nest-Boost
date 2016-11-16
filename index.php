@@ -1,3 +1,8 @@
+<head>
+  <link rel="shortcut icon" type="image/png" href="favicon.png" />
+  <title>Nest-Boost</title>
+</head>
+
 <?php
 // The Nest-Extended Configuration
 require_once(__DIR__ . '/resources/config.php');
