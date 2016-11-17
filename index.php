@@ -4,13 +4,13 @@
 </head>
 
 <?php
-// The Nest-Extended Configuration
+//The Nest-Boost config
 require_once(__DIR__ . '/resources/config.php');
 
 //Connect to the Database
-$con = mysqli_connect($hostname, $username, $password, $dbname);
-if (mysqli_connect_errno()) {
-    echo "Failed to connect to MySQL: " . mysqli_connect_error();
+$con = new mysqli($hostname, $username, $password, $dbname);
+if ($con->connect_error) {
+    trigger_error('Database connection failed: ' . $con->connect_error, E_USER_ERROR);
 }
 
 echo "<h3>Boost Management:</h3>";
@@ -48,6 +48,8 @@ while ($row = mysqli_fetch_array($result)) {
     echo "<tr><td>" . $row['startTime'] . "</td><td align=\"right\"> " . $row['totalMins'] . "</td></tr>"; //these are the fields that you have stored in your database table employee
 }
 echo "</table>";
-mysqli_close($con);
+
+//Close database connection
+$con->close();
 
 ?>

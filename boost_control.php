@@ -1,7 +1,7 @@
 <?php
-// The Nest-Extended Configuration
+//The Nest-Boost config
 require_once(__DIR__ . '/resources/config.php');
-// The Nest API Class file
+//The Nest API Class
 require_once(__DIR__ . '/resources/nest.class.php');
 
 //Connect to the Database
@@ -10,7 +10,6 @@ if ($con->connect_error) {
     trigger_error('Database connection failed: ' . $con->connect_error, E_USER_ERROR);
 }
 
-echo "Current datetime: ";
 echo date("Y/m/d H:i:s", time());
 echo "<br>";
 
@@ -44,10 +43,8 @@ if ($result->num_rows > 0)
         $high_target_temp = $infos->target->temperature[1];
     }
     
-    echo ("<br>Filling in missing data<br>");
-    echo ($low_target_temp);
-    echo ("<br>");
-    echo ($infos->current_state->temperature);
+    echo ("<br>New boost trigger found, recording current state. Current target: $low_target_temp Current temp: $infos->current_state->temperature");
+    
     $v1 = (string)$low_target_temp;
     $v2 = (string)$infos->current_state->temperature;
     
@@ -67,7 +64,7 @@ if ($result->num_rows > 1) {
 elseif ($result->num_rows > 0) {
     // output data of each row
     while ($row = $result->fetch_assoc()) {
-        echo "<br><br>startTargetTemp: " . $row["startTargetTemp"] . " | startActualTemp: " . $row["startActualTemp"] . " | startTime: " . $row["startTime"] . " | totalMins: " . $row["totalMins"] . " | complete: " . $row["complete"] . "<br>";
+        echo "Current boost programme:<br>startTargetTemp: " . $row["startTargetTemp"] . "<br>startActualTemp: " . $row["startActualTemp"] . "<br>startTime: " . $row["startTime"] . "<br>totalMins: " . $row["totalMins"] . "<br>complete: " . $row["complete"] . "<br>";
         
         $startTargetTemp = $row["startTargetTemp"];
         $startTime       = $row["startTime"];
@@ -98,12 +95,9 @@ elseif ($result->num_rows > 0) {
             $high_target_temp = $infos->target->temperature[1];
         }
         
-        echo ("<br>Current temp: ");
-        echo ($infos->current_state->temperature);
-        echo ("<br>Target temp: ");
-        echo ($low_target_temp);
-        echo ("<br>Time to target: ");
-        echo ($infos->target->time_to_target);
+        echo ("<br>Current temp: $infos->current_state->temperature");
+        echo ("<br>Target temp: $low_target_temp");
+        echo ("<br>Time to target: $infos->target->time_to_target");
         
         //Calculate boost end time and store in variable
         $dtEndDate = new DateTime($startTime);
@@ -115,25 +109,25 @@ elseif ($result->num_rows > 0) {
         
         //Check if the active Boost should be terminated (has it gone beyond the intended run time)
         if ($dtCurrentDate > $dtEndDate) {
-            echo ("<br><br>Boost completed. Restoring heating values.");
-            echo "<br>Setting target temperature back to ";
+            echo ("<br><br>Boost completed. Restoring heating values.<br>Setting target temperature back to ";
             
             //Check if current time is between 10pm and 4am
-            if( ($dtCurrentHour >= 22) || ($dtCurrentHour < 4) ){
+            if( ($dtCurrentHour >= 23) || ($dtCurrentHour < 4) ){
                 echo "12 degrees (the night time temp)";
                 //Set temp to night time temperature (12 degrees)
-                $success = $nest->setTargetTemperature(12);
-                var_dump($success);
+                ////UNCOMMENT TO RUN LIVE
+                ////$success = $nest->setTargetTemperature(12);
+                ////var_dump($success);
                 
                 sleep(1);
             }
             else{
-                echo ($startTargetTemp);
-                echo " degrees (the pre-Boost target temp)";
+                echo ("$startTargetTemp degrees (the pre-boost target temp)";
                 //Set temp to startTargetTemp
                 $startTargetTemp = intval($startTargetTemp); //Set as integer first, it fails if we send a string through to the NEST API
-                $success = $nest->setTargetTemperature($startTargetTemp);
-                var_dump($success);
+                ////UNCOMMENT TO RUN LIVE
+                ////$success = $nest->setTargetTemperature($startTargetTemp);
+                ////var_dump($success);
                 
                 sleep(1);
             }
@@ -149,32 +143,28 @@ elseif ($result->num_rows > 0) {
             //$result should be 1 or more for a success
             
         } else {
-            echo ("<br><br>Boost in progress....");
+            echo ("<br><br>Boost currently active...");
             
             $targetDiff = ($low_target_temp - $infos->current_state->temperature);
             
             //If current temp is less than target
             if ($low_target_temp < $infos->current_state->temperature) {
-                echo ("<br><br>Target is ");
-                echo ($targetDiff);
-                echo (" degrees under current temp. Increasing target...");
+                echo ("<br>Target is $targetDiff degrees under current temp, increasing target.");
                 
                 //set target to current temp plus 1deg
                 $newTargetTemp = ($infos->current_state->temperature + 1);
-                echo "<br>Setting target temperature to";
-                echo ($newTargetTemp);
-                $success = $nest->setTargetTemperature($newTargetTemp);
-                var_dump($success);
+                echo "<br>Setting target temperature to $newTargetTemp";
+                ////UNCOMMENT TO RUN LIVE
+                ////$success = $nest->setTargetTemperature($newTargetTemp);
+                ////var_dump($success);
                 
                 sleep(1);
             } else {
-                echo ("<br><br>Target is ");
-                echo ($targetDiff);
-                echo (" degrees over current temp. Thats good, nothing to do.");
+                echo ("<br>Target is $targetDiff degrees over current temp. Nothing to do.");
             }
         }
         
-        //Close mySQL DB connection
+        //Close database connection
         $con->close();
         
         /* Helper functions */
@@ -251,5 +241,5 @@ function jlog($json)
 
 }
 } else {
-    echo "Boost is not currently active";
+    echo "<br><br>Boost is not currently active";
 }
