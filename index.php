@@ -36,7 +36,7 @@ $result = $con->query($sql);
 if ($result->num_rows > 0)
 {
     //Boost already in progress
-    echo "A Boost program is already in progress.";
+    echo "A Boost program is already in progress.<br>";
     while ($row = $result->fetch_assoc()) {
         $dtEndDate = new DateTime($row["startTime"]);
         $dtEndDate->modify("+{$row["totalMins"]} minutes");
@@ -44,6 +44,9 @@ if ($result->num_rows > 0)
         echo "<b><br>Boost will complete at: </b> $dtEndDate";
         echo "<b><br>Boost duration: </b>";
         echo $row["totalMins"];
+        echo "<br>";
+        //TODO
+        //Write a button to cancel the current boost...set boostTime to 0?
     }
 }
 else
