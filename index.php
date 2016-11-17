@@ -2,6 +2,10 @@
   <link rel="shortcut icon" type="image/png" href="favicon.png" />
   <title>Nest-Boost</title>
   <style>
+    body {
+      font-family: calibri;
+    }
+    
     table,
     th,
     td {
