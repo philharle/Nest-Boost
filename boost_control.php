@@ -122,7 +122,7 @@ elseif ($result->num_rows > 0) {
                 sleep(1);
             }
             else{
-                echo ("$startTargetTemp degrees (the pre-boost target temp)";
+                echo "$startTargetTemp degrees (the pre-boost target temp)";
                 //Set temp to startTargetTemp
                 $startTargetTemp = intval($startTargetTemp); //Set as integer first, it fails if we send a string through to the NEST API
                 ////UNCOMMENT TO RUN LIVE
