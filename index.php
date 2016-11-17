@@ -44,7 +44,7 @@ if ($result->num_rows > 0)
         echo "<b><br>Boost will complete at: </b> $dtEndDate";
         echo "<b><br>Boost duration: </b>";
         echo $row["totalMins"];
-        echo "<br>";
+        echo "<br><br>";
         //TODO
         //Write a button to cancel the current boost...set boostTime to 0?
     }
