@@ -53,7 +53,7 @@ else
     }
 
 //Output Boost History
-echo "<br><hr><h3>Boost History:</h3>";
+echo "<hr><h3>Boost History:</h3>";
 $result = mysqli_query($con, "SELECT startTime, totalMins FROM boost ORDER by startTime DESC");
 echo "<table><tr><td><b>Start time</b></td><td align=\"right\"><b>Mins</b></td></tr>";
 while ($row = mysqli_fetch_array($result)) {

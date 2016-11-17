@@ -1,3 +1,13 @@
+<head>
+  <link rel="shortcut icon" type="image/png" href="favicon.png" />
+  <title>Nest-Boost</title>
+  <style>
+    body {
+      font-family: calibri;
+    }
+  </style>
+</head>
+
 <?php
 //Redirect after 1 second to Boost Control
 header("refresh:1;url=boost_control.php");
@@ -16,6 +26,7 @@ $totalMins = mysqli_real_escape_string($con, $_POST['boostTime']);
 $sql = "INSERT INTO `boost` (`startTime`, `totalMins`, `complete`) VALUES (CURRENT_TIMESTAMP, '$totalMins','n')";
 $result = $con->query($sql);
 
+echo "<h3>Boost Management:</h3>";
 echo "<b>You have requested Boost for $totalMins mins.</b><br>Please wait while we send this instruction to the Nest...";
     
 //Close database connection

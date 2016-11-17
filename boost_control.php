@@ -1,3 +1,13 @@
+<head>
+  <link rel="shortcut icon" type="image/png" href="favicon.png" />
+  <title>Nest-Boost</title>
+  <style>
+    body {
+      font-family: calibri;
+    }
+  </style>
+</head>
+
 <?php
 //The Nest-Boost config
 require_once(__DIR__ . '/resources/config.php');
