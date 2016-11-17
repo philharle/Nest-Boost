@@ -1,6 +1,13 @@
 <head>
   <link rel="shortcut icon" type="image/png" href="favicon.png" />
   <title>Nest-Boost</title>
+  <style>
+    table,
+    th,
+    td {
+      border: 1px solid black;
+    }
+  </style>
 </head>
 
 <?php
@@ -27,10 +34,8 @@ if ($result->num_rows > 0)
         $dtEndDate = new DateTime($row["startTime"]);
         $dtEndDate->modify("+{$row["totalMins"]} minutes");
         $dtEndDate = $dtEndDate->format('Y-m-d H:i:s');
-        echo "<b><br>Boost will complete at: </b>";
-        echo $dtEndDate;
-        echo "<b><br>Boost duration: </b>";
-        echo $row["totalMins"];
+        echo "<b><br>Boost will complete at: </b> $dtEndDate";
+        echo "<b><br>Boost duration: </b> $row["totalMins"]";
     }
 }
 else
@@ -40,9 +45,9 @@ else
     }
 
 //Output Boost History
-echo "<br><br><hr><h3>Boost History:</h3>";
+echo "<br><hr><h3>Boost History:</h3>";
 $result = mysqli_query($con, "SELECT startTime, totalMins FROM boost ORDER by startTime DESC");
-echo "<table>";
+echo "<table cellpadding=\"5\">";
 echo "<tr><td><b>Start time</b></td><td align=\"right\"><b>Mins</b></td></tr>";
 while ($row = mysqli_fetch_array($result)) {
     echo "<tr><td>" . $row['startTime'] . "</td><td align=\"right\"> " . $row['totalMins'] . "</td></tr>"; //these are the fields that you have stored in your database table employee
