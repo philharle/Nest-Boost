@@ -109,7 +109,7 @@ elseif ($result->num_rows > 0) {
         
         //Check if the active Boost should be terminated (has it gone beyond the intended run time)
         if ($dtCurrentDate > $dtEndDate) {
-            echo ("<br><br>Boost completed. Restoring heating values.<br>Setting target temperature back to ";
+            echo "<br><br>Boost completed. Restoring heating values.<br>Setting target temperature back to ";
             
             //Check if current time is between 10pm and 4am
             if( ($dtCurrentHour >= 23) || ($dtCurrentHour < 4) ){
