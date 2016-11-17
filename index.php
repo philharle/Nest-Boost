@@ -35,7 +35,7 @@ if ($result->num_rows > 0)
         $dtEndDate->modify("+{$row["totalMins"]} minutes");
         $dtEndDate = $dtEndDate->format('Y-m-d H:i:s');
         echo "<b><br>Boost will complete at: </b> $dtEndDate";
-        echo "<b><br>Boost duration: </b> $row["totalMins"]";
+        echo "<b><br>Boost duration: </b> $row[\"totalMins\"]";
     }
 }
 else
