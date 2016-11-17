@@ -11,7 +11,6 @@ if ($con->connect_error) {
 }
 
 echo date("Y/m/d H:i:s", time());
-echo "<br>";
 
 //If there is a boost recently triggered, then populate its values
 $sql    = "select startTargetTemp, startActualTemp, startTime, totalMins, complete from boost where complete = 'n' AND startTargetTemp IS NULL and startActualTemp IS NULL";
