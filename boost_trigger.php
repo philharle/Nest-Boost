@@ -40,7 +40,7 @@ else //We are specifying a boostTime of 0, so cancel the current boost by caclul
         $newBoostMins = $row["newBoostMins"];
     }
     //Update the database with the reduced totalMins
-    $sql = "UPDATE `boost` SET `totalMins` = `$newBoostMins` WHERE complete = 'n'";
+    $sql = "UPDATE `boost` SET `totalMins` = '$newBoostMins' WHERE complete = 'n'";
     $result = $con->query($sql);
     
     echo "<h3>Boost Management:</h3>";
