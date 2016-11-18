@@ -52,9 +52,9 @@ if ($result->num_rows > 0)
         $high_target_temp = $infos->target->temperature[1];
     }
     
-    echo "<br>New boost trigger found, recording current state. Current target: ";
+    echo "<br>New boost trigger found, recording current state. Current target is ";
     echo $low_target_temp;
-    echo "Current temp: ";
+    echo ", Current temp is ";
     echo $infos->current_state->temperature;
     
     $v1 = (string)$low_target_temp;
