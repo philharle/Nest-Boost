@@ -36,17 +36,16 @@ else //We are specifying a boostTime of 0, so cancel the current boost by caclul
 {
     $sql = "SELECT TIMESTAMPDIFF(MINUTE,(select startTime from boost where complete = 'n'),NOW()) AS newBoostMins";
     $result = $con->query($sql);
-    $value = mysql_fetch_object($result);
-    $_SESSION['newBoostMins'] = $value->newBoostMins;
-    echo $newBoostMins;
-    
-    //$sql = "UPDATE `boost` SET `totalMins` = `` WHERE complete = 'n'";
-    //$result = $con->query($sql);
+    while ($row = $result->fetch_assoc()) {
+        $newBoostMins = $row["newBoostMins"];
+    }
+    //Update the database with the reduced totalMins
+    $sql = "UPDATE `boost` SET `totalMins` = `$newBoostMins` WHERE complete = 'n'";
+    $result = $con->query($sql);
     
     echo "<h3>Boost Management:</h3>";
     echo "<b>You have requested the current boost programme to be cancelled.</b><br>Please wait while we send this instruction to the Nest...";
 }
-
 
 //Close database connection
 $con->close();
