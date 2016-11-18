@@ -45,8 +45,8 @@ if ($result->num_rows > 0)
         echo "<b><br>Boost duration: </b>";
         echo $row["totalMins"];
         //Provide a button to cancel the current boost...set boostTime to 0
+        //TODO I don't like this method, it loses the boost history, should probably cacluate a new true boost value based on current time minus start time (minus 1 min)
         echo "<form action=\"boost_trigger.php\"method=\"post\"><br>Is your washing dry already?<input type=\"hidden\" name=\"boostTime\" value=\"0\"></select><br><br><input type=\"submit\" value=\"Cancel Boost\"></form>";
-        echo "<br>";
     }
 }
 else
@@ -60,9 +60,15 @@ echo "<hr><h3>Boost History:</h3>";
 $result = mysqli_query($con, "SELECT startTime, totalMins FROM boost ORDER by startTime DESC");
 echo "<table><tr><td><b>Start time</b></td><td align=\"right\"><b>Mins</b></td></tr>";
 while ($row = mysqli_fetch_array($result)) {
-    echo "<tr><td>" . $row['startTime'] . "</td><td align=\"right\"> " . $row['totalMins'] . "</td></tr>"; //these are the fields that you have stored in your database table employee
+    echo "<tr><td>" . $row['startTime'] . "</td><td align=\"right\"> " . $row['totalMins'] . "</td></tr>";
 }
 echo "</table>";
+
+//Output sum of boostMins
+$result = mysqli_query($con, "select sum(totalMins) as totalBoostMins from boost");
+while ($row = mysqli_fetch_array($result)) {
+    echo "<br>You've used the boost for a total of " . $row['totalBoostMins'] . " mins";
+    }
 
 //Close database connection
 $con->close();
