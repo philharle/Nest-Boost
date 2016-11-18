@@ -73,7 +73,7 @@ if ($result->num_rows > 1) {
 elseif ($result->num_rows > 0) {
     // output data of each row
     while ($row = $result->fetch_assoc()) {
-        echo "Current boost programme:<br>startTargetTemp: " . $row["startTargetTemp"] . "<br>startActualTemp: " . $row["startActualTemp"] . "<br>startTime: " . $row["startTime"] . "<br>totalMins: " . $row["totalMins"] . "<br>complete: " . $row["complete"] . "<br>";
+        echo "<br>Current boost programme:<br>startTargetTemp " . $row["startTargetTemp"] . "<br>startActualTemp " . $row["startActualTemp"] . "<br>startTime " . $row["startTime"] . "<br>totalMins " . $row["totalMins"] . "<br>complete " . $row["complete"] . "<br>";
         
         $startTargetTemp = $row["startTargetTemp"];
         $startTime       = $row["startTime"];
