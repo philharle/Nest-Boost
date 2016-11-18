@@ -45,6 +45,8 @@ else //We are specifying a boostTime of 0, so cancel the current boost by caclul
     
     echo "<h3>Boost Management:</h3>";
     echo "<b>You have requested the current boost programme to be cancelled.</b><br>Please wait while we send this instruction to the Nest...";
+    
+    sleep(1);
 }
 
 //Close database connection
