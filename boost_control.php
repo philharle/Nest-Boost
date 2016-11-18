@@ -104,9 +104,12 @@ elseif ($result->num_rows > 0) {
             $high_target_temp = $infos->target->temperature[1];
         }
         
-        echo ("<br>Current temp: $infos->current_state->temperature");
-        echo ("<br>Target temp: $low_target_temp");
-        echo ("<br>Time to target: $infos->target->time_to_target");
+        echo "<br>Current temp: ";
+        echo $infos->current_state->temperature;
+        echo "<br>Target temp: ";
+        echo $low_target_temp;
+        echo "<br>Time to target: ";
+        echo $infos->target->time_to_target;
         
         //Calculate boost end time and store in variable
         $dtEndDate = new DateTime($startTime);
