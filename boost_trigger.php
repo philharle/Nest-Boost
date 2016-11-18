@@ -32,10 +32,16 @@ if ($totalMins > 0)
     echo "<h3>Boost Management:</h3>";
     echo "<b>You have requested Boost for $totalMins mins.</b><br>Please wait while we send this instruction to the Nest...";
     }
-else //We are specifying a boostTime of 0, se cancel the current boost
+else //We are specifying a boostTime of 0, so cancel the current boost by caclulating a new boostMins value from the current time
 {
-    $sql = "UPDATE `boost` SET `totalMins` = '0' WHERE complete = 'n'";
+    $sql = "SELECT TIMESTAMPDIFF(MINUTE,(select startTime from boost where complete = 'n'),NOW()) AS newBoostMins";
     $result = $con->query($sql);
+    $value = mysql_fetch_object($result);
+    $_SESSION['newBoostMins'] = $value->newBoostMins;
+    echo $newBoostMins;
+    
+    //$sql = "UPDATE `boost` SET `totalMins` = `` WHERE complete = 'n'";
+    //$result = $con->query($sql);
     
     echo "<h3>Boost Management:</h3>";
     echo "<b>You have requested the current boost programme to be cancelled.</b><br>Please wait while we send this instruction to the Nest...";
