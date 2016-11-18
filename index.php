@@ -44,9 +44,9 @@ if ($result->num_rows > 0)
         echo "<b><br>Boost will complete at: </b> $dtEndDate";
         echo "<b><br>Boost duration: </b>";
         echo $row["totalMins"];
+        //Provide a button to cancel the current boost...set boostTime to 0
+        echo "<form action=\"boost_trigger.php\"method=\"post\">Is your washing dry already?<input type=\"hidden\" name=\"boostTime\" value=\"0\"></select><br><br><input type=\"submit\" value=\"Cancel Boost\"></form>";
         echo "<br><br>";
-        //TODO
-        //Write a button to cancel the current boost...set boostTime to 0?
     }
 }
 else
