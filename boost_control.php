@@ -1,11 +1,11 @@
 <head>
   <link rel="shortcut icon" type="image/png" href="favicon.png" />
   <title>Nest-Boost</title>
-  <style>
-    body {
-      font-family: calibri;
-    }
-  </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 
 <?php
@@ -20,7 +20,13 @@ if ($con->connect_error) {
     trigger_error('Database connection failed: ' . $con->connect_error, E_USER_ERROR);
 }
 
+echo "<nav class=\"navbar navbar-default navbar-fixed-top\"><div class=\"container-fluid\"><div class=\"navbar-header\"><a class=\"navbar-brand\" href=\"/Nest-Boost/\"><span class=\"glyphicon glyphicon-record\"></span> Nest Boost</a></div></div></nav><div class=\"container\" style=\"margin-top:50px\">";
+
+echo "<div class=\"col-sm-6\"><h1><small>Boost</small></h1>Last updated: ";
+
 echo date("Y/m/d H:i:s", time());
+
+echo "<br><pre>";
 
 //If there is a boost recently triggered, then populate its values
 $sql    = "select startTargetTemp, startActualTemp, startTime, totalMins, complete from boost where complete = 'n' AND startTargetTemp IS NULL and startActualTemp IS NULL";
@@ -52,7 +58,7 @@ if ($result->num_rows > 0)
         $high_target_temp = $infos->target->temperature[1];
     }
     
-    echo "<br>New boost trigger found, recording current state. Current target is ";
+    echo "New boost trigger found, recording current state. Current target is ";
     echo $low_target_temp;
     echo ", Current temp is ";
     echo $infos->current_state->temperature;
@@ -76,7 +82,7 @@ if ($result->num_rows > 1) {
 elseif ($result->num_rows > 0) {
     // output data of each row
     while ($row = $result->fetch_assoc()) {
-        echo "<br>Current boost programme:<br>startTargetTemp " . $row["startTargetTemp"] . "<br>startActualTemp " . $row["startActualTemp"] . "<br>startTime " . $row["startTime"] . "<br>totalMins " . $row["totalMins"] . "<br>complete " . $row["complete"] . "<br>";
+        echo "Current boost programme:<br>startTargetTemp " . $row["startTargetTemp"] . "<br>startActualTemp " . $row["startActualTemp"] . "<br>startTime " . $row["startTime"] . "<br>totalMins " . $row["totalMins"] . "<br>complete " . $row["complete"] . "<br>";
         
         $startTargetTemp = $row["startTargetTemp"];
         $startTime       = $row["startTime"];
@@ -263,5 +269,6 @@ function jlog($json)
 
 }
 } else {
-    echo "<br><br>Boost is not currently active";
+    echo "Boost is not currently active";
 }
+echo "</pre></div>";
