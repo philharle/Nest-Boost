@@ -40,8 +40,3 @@ boost_trigger.php is called from the form, and logs the request into the databas
 boost_control.php is called once from boost_trigger.php to populate the current target temperature and raise the target temperature of your Nest to 1 degree higher than the actual temperature.
 It is also called via cron every 10 mins to ensure that the target temperature is still higher than the actual temperature and if not, add an additional 1 degree.
 Finally once the Boost time has elapsed it will set the job in the database to completed, and lower the target temperature of your Nest to the pre-Boost target temperature.
-
-Further Notes
--------------
-Ok, so this isn't very pretty. But it's designed to be more functional than fashionable.
-I'll tidy it up and make it look nice one day.
