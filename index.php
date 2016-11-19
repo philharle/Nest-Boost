@@ -35,15 +35,10 @@ if ($result->num_rows > 0)
         $dtEndDate->modify("+{$row["totalMins"]} minutes");
         $dtEndDate = $dtEndDate->format('Y-m-d H:i:s');
 
-	//Round up End Time to the next 10 min cron interval
-	$dtEndDatePlus10 = strtotime($dtEndDate);
-	$dtEndDatePlus10 = date("Y-m-d H:i:s", ( $maketime+(60*10) ));
-
-        echo "<b><br>Boost will complete at: </b> $dtEndDatePlus10";
+        echo "<b><br>Boost will complete at: </b> $dtEndDate";
         echo "<b><br>Boost duration: </b>";
         echo $row["totalMins"];
         //Provide a button to cancel the current boost...set boostTime to 0
-        //TODO I don't like this method, it loses the boost history, should probably cacluate a new true boost value based on current time minus start time (minus 1 min)
         echo "<form action=\"boost_trigger.php\"method=\"post\"><div class=\"form-group\"><br><label>Is your washing dry already?</label><input type=\"hidden\" name=\"boostTime\" value=\"0\"><br><input type=\"submit\" class=\"btn btn-danger\" value=\"Cancel Boost\"></div></form>";
     }
 }

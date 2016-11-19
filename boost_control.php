@@ -22,7 +22,7 @@ if ($con->connect_error) {
 
 echo "<nav class=\"navbar navbar-default navbar-fixed-top\"><div class=\"container-fluid\"><div class=\"navbar-header\"><a class=\"navbar-brand\" href=\"/Nest-Boost/\"><span class=\"glyphicon glyphicon-record\"></span> Nest Boost</a></div></div></nav><div class=\"container\" style=\"margin-top:50px\">";
 
-echo "<div class=\"col-sm-6\"><h1><small>Boost</small></h1>Last updated: ";
+echo "<div class=\"col-sm-12\"><h1><small>Boost</small></h1>Last updated: ";
 
 echo date("Y/m/d H:i:s", time());
 
@@ -62,6 +62,7 @@ if ($result->num_rows > 0)
     echo $low_target_temp;
     echo ", Current temp is ";
     echo $infos->current_state->temperature;
+    echo "<br>";
     
     $v1 = (string)$low_target_temp;
     $v2 = (string)$infos->current_state->temperature;
@@ -186,10 +187,12 @@ elseif ($result->num_rows > 0) {
             }
         }
 
+echo "</pre>";
+
 	//Show link to homepage providing this is not a wget query on localhost (cron)
 	$domain = $_SERVER['SERVER_NAME'];
 	if($domain <> 'localhost'){
-        	echo ("<br><br><b>Boost activated.</b> <a href=\"/Nest-Boost/\">Return to Nest-Boost homepage</a>");
+        	echo ("<br><a href=\"/Nest-Boost/\" class=\"btn btn-info\" role=\"button\">Return to homepage</a>");
 	}
 
         //Close database connection
@@ -271,4 +274,4 @@ function jlog($json)
 } else {
     echo "Boost is not currently active";
 }
-echo "</pre></div>";
+echo "</div>";
