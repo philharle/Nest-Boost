@@ -163,8 +163,9 @@ elseif ($result->num_rows > 0) {
             $targetDiff = ($low_target_temp - $infos->current_state->temperature);
             
             //If current temp is less than target
-            if ($low_target_temp < $infos->current_state->temperature) {
-                echo ("<br>Target is $targetDiff degrees under current temp, increasing target.");
+            //if ($low_target_temp < $infos->current_state->temperature) {
+            if ($targetDiff < 1) {
+		echo ("<br>Target is $targetDiff degrees under current temp, increasing target.");
                 
                 //set target to current temp plus 1deg
                 $newTargetTemp = ($infos->current_state->temperature + 1);
