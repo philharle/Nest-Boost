@@ -131,8 +131,8 @@ elseif ($result->num_rows > 0) {
                 echo "12 degrees (the night time temp)";
                 //Set temp to night time temperature (12 degrees)
                 ////UNCOMMENT TO RUN LIVE
-                ////$success = $nest->setTargetTemperature(12);
-                ////var_dump($success);
+                $success = $nest->setTargetTemperature(12);
+                var_dump($success);
                 
                 sleep(1);
             }
@@ -141,8 +141,8 @@ elseif ($result->num_rows > 0) {
                 //Set temp to startTargetTemp
                 $startTargetTemp = intval($startTargetTemp); //Set as integer first, it fails if we send a string through to the NEST API
                 ////UNCOMMENT TO RUN LIVE
-                ////$success = $nest->setTargetTemperature($startTargetTemp);
-                ////var_dump($success);
+                $success = $nest->setTargetTemperature($startTargetTemp);
+                var_dump($success);
                 
                 sleep(1);
             }
@@ -170,8 +170,8 @@ elseif ($result->num_rows > 0) {
                 $newTargetTemp = ($infos->current_state->temperature + 1);
                 echo "<br>Setting target temperature to $newTargetTemp";
                 ////UNCOMMENT TO RUN LIVE
-                ////$success = $nest->setTargetTemperature($newTargetTemp);
-                ////var_dump($success);
+                $success = $nest->setTargetTemperature($newTargetTemp);
+                var_dump($success);
                 
                 sleep(1);
             } else {
