@@ -15,7 +15,7 @@ require_once(__DIR__ . '/resources/config.php');
 //Connect to the Database
 $con = new mysqli($hostname, $username, $password, $dbname);
 if ($con->connect_error) {
-    trigger_error('Database connection failed: ' . $con->connect_error, E_USER_ERROR);
+	trigger_error('Database connection failed: ' . $con->connect_error, E_USER_ERROR);
 }
 
 echo "<nav class=\"navbar navbar-default navbar-fixed-top\"><div class=\"container-fluid\"><div class=\"navbar-header\"><a class=\"navbar-brand\" href=\"/Nest-Boost/\"><span class=\"glyphicon glyphicon-record\"></span> Nest Boost</a></div></div></nav><div class=\"container\" style=\"margin-top:50px\">";
@@ -28,34 +28,34 @@ echo "<div class=\"col-sm-4\"><h1><small>Boost</small></h1>";
 
 if ($result->num_rows > 0)
 {
-    //Boost already in progress
-    echo "A Boost program is already in progress.";
-    while ($row = $result->fetch_assoc()) {
-        $dtEndDate = new DateTime($row["startTime"]);
-        $dtEndDate->modify("+{$row["totalMins"]} minutes");
-        $dtEndDate = $dtEndDate->format('Y-m-d H:i:s');
+	//Boost already in progress
+	echo "A Boost program is already in progress.";
+	while ($row = $result->fetch_assoc()) {
+		$dtEndDate = new DateTime($row["startTime"]);
+		$dtEndDate->modify("+{$row["totalMins"]} minutes");
+		$dtEndDate = $dtEndDate->format('Y-m-d H:i:s');
 
-        echo "<b><br>Boost will complete at: </b> $dtEndDate";
-        echo "<b><br>Boost duration: </b>";
-        echo $row["totalMins"];
-        //Provide a button to cancel the current boost...set boostTime to 0
-        echo "<form action=\"boost_trigger.php\"method=\"post\"><div class=\"form-group\"><br><label>Is your washing dry already?</label><input type=\"hidden\" name=\"boostTime\" value=\"0\"><br><input type=\"submit\" class=\"btn btn-danger\" value=\"Cancel Boost\"></div></form>";
-    }
+		echo "<b><br>Boost will complete at: </b> $dtEndDate";
+		echo "<b><br>Boost duration: </b>";
+		echo $row["totalMins"];
+		//Provide a button to cancel the current boost...set boostTime to 0
+		echo "<form action=\"boost_trigger.php\"method=\"post\"><div class=\"form-group\"><br><label>Is your washing dry already?</label><input type=\"hidden\" name=\"boostTime\" value=\"0\"><br><input type=\"submit\" class=\"btn btn-danger\" value=\"Cancel Boost\"></div></form>";
+	}
 }
 else
 {
-    //No Boost in progress at the moment, so show the form
-    echo "<form action=\"boost_trigger.php\"method=\"post\"><div class=\"form-group\"><label>Dry washing for</label><select class=\"form-control\" name=\"boostTime\"><option value= \"30\">30 mins</option><option value= \"60\">60 mins</option><option value = \"90\">90 mins</option><option value = \"120\">120 mins</option></select><br><input type=\"submit\" class=\"btn btn-success\" value=\"Activate Boost\"></div></form>";
-    }
+	//No Boost in progress at the moment, so show the form
+	echo "<form action=\"boost_trigger.php\"method=\"post\"><div class=\"form-group\"><label>Dry washing for</label><select class=\"form-control\" name=\"boostTime\"><option value= \"30\">30 mins</option><option value= \"60\">60 mins</option><option value = \"90\">90 mins</option><option value = \"120\">120 mins</option></select><br><input type=\"submit\" class=\"btn btn-success\" value=\"Activate Boost\"></div></form>";
+	}
 
-    echo "</div>";
+	echo "</div>";
 
 //Output Boost History
 echo "<div class=\"col-sm-8\"><h1><small>History</small></h1>";
 $result = mysqli_query($con, "SELECT startTime, totalMins FROM boost WHERE startTime > NOW() - INTERVAL 30 DAY ORDER by startTime DESC");
 echo "<table class=\"table table-striped\"><thead><tr><th>Start time</th><th>Mins</th></tr></thead>";
 while ($row = mysqli_fetch_array($result)) {
-    echo "<tr><td>" . $row['startTime'] . "</td><td> " . $row['totalMins'] . "</td></tr>";
+	echo "<tr><td>" . $row['startTime'] . "</td><td> " . $row['totalMins'] . "</td></tr>";
 }
 echo "</table>";
 
@@ -63,8 +63,8 @@ echo "</table>";
 //TODO Filter on last 30 days
 $result = mysqli_query($con, "select sum(totalMins) as totalBoostMins from boost WHERE startTime > NOW() - INTERVAL 30 DAY");
 while ($row = mysqli_fetch_array($result)) {
-    echo "Over the last 30 days Boost has been active for " . $row['totalBoostMins'] . " mins</div>";
-    }
+	echo "Over the last 30 days Boost has been active for " . $row['totalBoostMins'] . " mins</div>";
+	}
 
 echo "</div>";
 
