@@ -28,7 +28,7 @@ Your database should be configured as below
 ```
 You should add the following cron job
 ```
-*/10 * * * * /usr/bin/wget -q -O nestboost_cron.log http://localhost/Nest-Boost/boost_control.php
+*/10 * * * * /usr/bin/wget -q -O nestboost_cron.log https://localhost/Nest-Boost/boost_control.php --no-check-certificate
 ```
 
 Notes
