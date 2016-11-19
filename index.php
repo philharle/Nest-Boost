@@ -41,7 +41,12 @@ if ($result->num_rows > 0)
         $dtEndDate = new DateTime($row["startTime"]);
         $dtEndDate->modify("+{$row["totalMins"]} minutes");
         $dtEndDate = $dtEndDate->format('Y-m-d H:i:s');
-        echo "<b><br>Boost will complete at: </b> $dtEndDate";
+
+	//Round up End Time to the next 10 min cron interval
+	$dtEndDatePlus10 = strtotime($dtEndDate);
+	$dtEndDatePlus10 = date("Y-m-d H:i:s", ( $maketime+(60*10) ));
+
+        echo "<b><br>Boost will complete at: </b> $dtEndDatePlus10";
         echo "<b><br>Boost duration: </b>";
         echo $row["totalMins"];
         //Provide a button to cancel the current boost...set boostTime to 0
