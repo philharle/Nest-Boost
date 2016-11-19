@@ -52,7 +52,7 @@ else
 
 //Output Boost History
 echo "<div class=\"col-sm-8\"><h1><small>History</small></h1>";
-$result = mysqli_query($con, "SELECT startTime, totalMins FROM boost ORDER by startTime DESC");
+$result = mysqli_query($con, "SELECT startTime, totalMins FROM boost WHERE startTime > NOW() - INTERVAL 30 DAY ORDER by startTime DESC");
 echo "<table class=\"table table-striped\"><thead><tr><th>Start time</th><th>Mins</th></tr></thead>";
 while ($row = mysqli_fetch_array($result)) {
     echo "<tr><td>" . $row['startTime'] . "</td><td> " . $row['totalMins'] . "</td></tr>";
@@ -61,7 +61,7 @@ echo "</table>";
 
 //Output sum of boostMins
 //TODO Filter on last 30 days
-$result = mysqli_query($con, "select sum(totalMins) as totalBoostMins from boost");
+$result = mysqli_query($con, "select sum(totalMins) as totalBoostMins from boost WHERE startTime > NOW() - INTERVAL 30 DAY");
 while ($row = mysqli_fetch_array($result)) {
     echo "Over the last 30 days Boost has been active for " . $row['totalBoostMins'] . " mins</div>";
     }
