@@ -178,7 +178,13 @@ elseif ($result->num_rows > 0) {
                 echo ("<br>Target is $targetDiff degrees over current temp. Nothing to do.");
             }
         }
-        
+
+	//Show link to homepage providing this is not a wget query on localhost (cron)
+	$domain = $_SERVER['SERVER_NAME'];
+	if($domain <> 'localhost'){
+        	echo ("<br><br><b>Boost activated.</b> <a href=\"/Nest-Boost/\">Return to Nest-Boost homepage</a>");
+	}
+
         //Close database connection
         $con->close();
         
