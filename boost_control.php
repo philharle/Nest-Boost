@@ -18,6 +18,14 @@ if ($con->connect_error) {
     trigger_error('Database connection failed: ' . $con->connect_error, E_USER_ERROR);
 }
 
+//If active boost program, initalise Nest API
+$sql    = "select complete from boost where complete = 'n'";
+$result = $con->query($sql);
+if ($result->num_rows > 0) {
+    $nest  = new Nest();
+    $infos = $nest->getDeviceInfo();
+}
+
 echo "<nav class=\"navbar navbar-default navbar-fixed-top\"><div class=\"container-fluid\"><div class=\"navbar-header\"><a class=\"navbar-brand\" href=\"/Nest-Boost/\"><span class=\"glyphicon glyphicon-record\"></span> Nest Boost</a></div></div></nav><div class=\"container\" style=\"margin-top:50px\">";
     
     echo "<div class=\"col-sm-12\"><h1><small>Boost</small></h1>Last updated: ";
@@ -31,8 +39,8 @@ echo "<nav class=\"navbar navbar-default navbar-fixed-top\"><div class=\"contain
     $result = $con->query($sql);
     if ($result->num_rows > 0)
     {
-        $nest  = new Nest();
-        $infos = $nest->getDeviceInfo();
+        //$nest  = new Nest();
+        //$infos = $nest->getDeviceInfo();
         
         //If the target temperature is an array, we need to deal with that.
         if (strpos($infos->current_state->mode, 'heat') !== false) {
@@ -87,9 +95,9 @@ elseif ($result->num_rows > 0) {
         $startTime       = $row["startTime"];
         $totalMins       = $row["totalMins"];
         
-        $nest  = new Nest();
+        //$nest  = new Nest();
+        //$infos = $nest->getDeviceInfo();
         
-        $infos = $nest->getDeviceInfo();
         //If the target temperature is an array, we need to deal with that.
         if (strpos($infos->current_state->mode, 'heat') !== false) {
             if (is_array($infos->target->temperature)) {
