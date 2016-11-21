@@ -10,6 +10,8 @@ This program manages the 'Boost' by ensuring your Nest target temperature remain
 
 Nest-Boost relies on the unofficial Nest API (https://github.com/gboudreau/nest-api/)
 
+![Screenshot](https://cloud.githubusercontent.com/assets/12716504/20483419/da0912f6-afe9-11e6-820b-ce7a0d974802.png)
+
 Installation
 -------------
 To install you'll need a webserver running PHP and MySQL. Additionally, you'll need to know how to add cron jobs.
