@@ -10,7 +10,7 @@ This program manages the 'Boost' by ensuring your Nest target temperature remain
 
 Nest-Boost relies on the unofficial Nest API (https://github.com/gboudreau/nest-api/)
 
-![Screenshot](https://cloud.githubusercontent.com/assets/12716504/20483419/da0912f6-afe9-11e6-820b-ce7a0d974802.png)
+![Screenshot](https://cloud.githubusercontent.com/assets/12716504/20485603/483f38d6-aff4-11e6-8286-9e77a6980b51.png)
 
 Installation
 -------------
